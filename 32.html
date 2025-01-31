@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Fact Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .category {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #ff758c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #ff5e7d;
+            transform: scale(1.1);
+        }
+
+        .fact {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 25px 0;
+            color: #444;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-in-out;
+            min-height: 70px;
+        }
+
+        .fact.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fun Fact Generator</h1>
+        <div class="category">
+            <button onclick="generateFact('space')">🚀 Space</button>
+            <button onclick="generateFact('nature')">🌿 Nature</button>
+            <button onclick="generateFact('physics')">⚛️ Physics</button>
+            <button onclick="generateFact('math')">🔢 Math</button>
+            <button onclick="generateFact('engineering')">🛠️ Engineering</button>
+            <button onclick="generateFact('ai')">🤖 AI</button>
+            <button onclick="generateFact('history')">📜 History</button>
+            <button onclick="generateFact('geography')">🌍 Geography</button>
+            <button onclick="generateFact('music')">🎵 Music</button>
+            <button onclick="generateFact('chemistry')">🧪 Chemistry</button>
+            <button onclick="generateFact('biology')">🦠 Biology</button>
+            <button onclick="generateFact('psychology')">🧠 Psychology</button>
+        </div>
+        <p class="fact">Select a category to get a fun fact!</p>
+    </div>
+
+    <script>
+        const facts = {
+            space: [
+                "There are more stars in the universe than grains of sand on Earth!",
+                "A day on Venus is longer than a year on Venus!",
+                "Neutron stars are incredibly dense!",
+                "The footprints left on the Moon will remain there for millions of years!",
+                "One spoonful of a neutron star would weigh about 6 billion tons!"
+            ],
+            nature: [
+                "Bananas are berries, but strawberries aren’t!",
+                "Octopuses have three hearts!",
+                "A single tree can absorb 48 pounds of CO₂ per year!",
+                "Wombat poop is cube-shaped!",
+                "Cows have best friends and get stressed when separated!"
+            ],
+            physics: [
+                "Water can boil and freeze at the same time - it's called the Triple Point!",
+                "Light can travel around the Earth 7.5 times in one second!",
+                "A particle can be in two places at once due to quantum superposition!",
+                "If you fold a piece of paper 42 times, it would reach the Moon!"
+            ],
+            math: [
+                "A pizza that is 16 inches has more pizza than two 12-inch pizzas!",
+                "Zero is the only number that cannot be represented in Roman numerals!",
+                "A circle has infinite lines of symmetry!",
+                "There are infinitely many prime numbers!"
+            ],
+            engineering: [
+                "The Eiffel Tower can be 15 cm taller during the summer due to heat expansion!",
+                "Bridges are designed to sway slightly with the wind to prevent structural damage!",
+                "The Panama Canal uses about 52 million gallons of water per ship passing through!"
+            ],
+            ai: [
+                "AI can recognize emotions from facial expressions with high accuracy!",
+                "The first AI program was written in 1951 by Christopher Strachey!",
+                "Deep learning models are inspired by the structure of the human brain!"
+            ],
+            history: [
+                "Cleopatra lived closer to the invention of the iPhone than to the construction of the Great Pyramid!",
+                "The Great Fire of London in 1666 destroyed 80% of the city!"
+            ],
+            geography: [
+                "Antarctica is the driest, windiest, and coldest continent on Earth!",
+                "There’s a place in Africa where deserts, jungles, and snow exist within a few miles!"
+            ],
+            music: [
+                "The longest piece of music ever performed is called 'As Slow As Possible' and will last 639 years!",
+                "Beethoven composed music even after he became completely deaf!"
+            ],
+            chemistry: [
+                "Water expands when it freezes, making ice less dense than liquid water!",
+                "The only letter that doesn't appear on the periodic table is 'J'!"
+            ],
+            biology: [
+                "Your body has more bacterial cells than human cells!",
+                "Sharks have been around longer than trees!"
+            ],
+            psychology: [
+                "Your brain generates enough electricity to power a small light bulb!",
+                "People who talk to themselves are often more intelligent and focused!"
+            ]
+        };
+
+        function generateFact(category) {
+            const factElement = document.querySelector('.fact');
+            const randomFact = facts[category][Math.floor(Math.random() * facts[category].length)];
+            factElement.textContent = randomFact;
+            factElement.classList.remove('show');
+            
+            setTimeout(() => {
+                factElement.classList.add('show');
+            }, 100);
+        }
+    </script>
+</body>
+</html>
